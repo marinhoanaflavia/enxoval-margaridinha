@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enxoval da Margaridinha 🌼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f59e0b;
+      --primary-light: #fef3c7;
+      --primary-dark: #b45309;
+      --accent-pink: #f472b6;
+      --accent-pink-light: #fdf2f8;
+      --accent-green: #10b981;
+      --accent-green-light: #ecfdf5;
+      --accent-blue: #38bdf8;
+      --accent-blue-light: #f0f9ff;
+      --bg-warm: #faf7f2;
+      --card-bg: #ffffff;
+      --text-main: #374151;
+      --text-muted: #6b7280;
+      --border-color: #f1e9dc;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 6px 18px rgba(180, 83, 9, 0.08);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      padding: 24px 16px 80px 16px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #fff9e6 0%, #fff 50%, #fdf2f8 100%);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .flower-icon {
+      font-size: 3.2rem;
+      background: #fef3c7;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+      animation: gentle-sway 4s ease-in-out infinite;
+    }
+
+    @keyframes gentle-sway {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(6deg); }
+    }
+
+    .header-title h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #92400e;
+      letter-spacing: -0.5px;
+    }
+
+    .header-title p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fef08a;
+      color: #854d0e;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* BUTTONS */
+    .btn {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #f59e0b;
+      color: white;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+    .btn-primary:hover {
+      background: #d97706;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: #4b5563;
+      border: 1px solid #d1d5db;
+    }
+    .btn-secondary:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+    }
+
+    .btn-accent {
+      background: #fdf2f8;
+      color: #be185d;
+      border: 1px solid #fbcfe8;
+    }
+    .btn-accent:hover {
+      background: #fce7f3;
+    }
+
+    /* SUMMARY CARDS */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .stat-card:hover, .stat-card.active {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      background: #fffbeb;
+    }
+
+    .stat-size {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #78350f;
+    }
+    .stat-months {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin: 2px 0 6px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .stat-count {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #b45309;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* CONTROLS & FILTERS */
+    .controls-panel {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px 10px 38px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+    }
+
+    .filter-selects {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-selects select {
+      padding: 10px 14px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: white;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+    .filter-selects select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #f9fafb;
+    }
+    .view-btn {
+      padding: 8px 14px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .view-btn.active {
+      background: #f59e0b;
+      color: white;
+    }
+
+    /* GRID VIEW */
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .item-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .item-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(180, 83, 9, 0.12);
+      border-color: #fcd34d;
+    }
+
+    .card-photo-wrapper {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      background: #fefce8;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #fef3c7;
+    }
+
+    .card-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .item-card:hover .card-photo {
+      transform: scale(1.03);
+    }
+
+    .photo-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #b45309;
+      font-weight: 600;
+      text-align: center;
+      padding: 16px;
+    }
+    .photo-placeholder svg {
+      width: 52px;
+      height: 52px;
+      opacity: 0.8;
+      stroke: #d97706;
+    }
+    .photo-hint {
+      font-size: 0.78rem;
+      color: #92400e;
+      background: rgba(254, 243, 199, 0.9);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .card-badges {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .badge-size {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      color: #92400e;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      border: 1px solid #fef08a;
+    }
+
+    .badge-category {
+      background: rgba(253, 242, 248, 0.95);
+      backdrop-filter: blur(4px);
+      color: #be185d;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border: 1px solid #fbcfe8;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #1f2937;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .card-season {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #047857;
+      background: #ecfdf5;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      align-self: flex-start;
+    }
+
+    .card-ref {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: #4b5563;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .card-footer {
+      border-top: 1px solid #f3f4f6;
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .qty-control {
+      display: inline-flex;
+      align-items: center;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f9fafb;
+    }
+
+    .qty-btn {
+      background: none;
+      border: none;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #4b5563;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .qty-btn:hover {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .qty-val {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      width: 28px;
+      text-align: center;
+      color: #1f2937;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-icon {
+      background: #f3f4f6;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #4b5563;
+      transition: all 0.2s;
+    }
+    .btn-icon:hover {
+      background: #e5e7eb;
+      color: #111827;
+    }
+    .btn-icon.delete:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    /* TABLE VIEW */
+    .table-container {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+      display: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+
+    th {
+      background: #fffbeb;
+      color: #92400e;
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 2px solid #fef3c7;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: middle;
+    }
+
+    tr:hover {
+      background: #fffdf7;
+    }
+
+    .table-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #fefce8;
+      border: 1px solid #fef3c7;
+      display: block;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(3px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 9999;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: var(--radius-lg);
+      max-width: 580px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      border: 1px solid var(--border-color);
+      animation: modal-pop 0.25s ease-out;
+    }
+
+    @keyframes modal-pop {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fffdf7;
+    }
+    .modal-header h2 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #92400e;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #9ca3af;
+      line-height: 1;
+    }
+    .modal-close:hover {
+      color: #111827;
+    }
+
+    .modal-body {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #374151;
+    }
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+      padding: 10px 14px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+    .form-group input:focus, 
+    .form-group select:focus, 
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .photo-upload-box {
+      border: 2px dashed #fcd34d;
+      background: #fffbeb;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .photo-upload-box:hover {
+      border-color: #f59e0b;
+    }
+    .photo-preview-thumb {
+      max-width: 120px;
+      max-height: 120px;
+      margin: 8px auto 0;
+      border-radius: 8px;
+      display: none;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #f3f4f6;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #f9fafb;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1f2937;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px dashed #d1d5db;
+    }
+    .empty-state h3 {
+      font-size: 1.2rem;
+      color: #4b5563;
+      margin-bottom: 6px;
+    }
+    .empty-state p {
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .header-info { width: 100%; }
+      .header-actions { width: 100%; justify-content: stretch; }
+      .header-actions .btn { flex: 1; justify-content: center; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- HEADER -->
+  <header>
+    <div class="header-info">
+      <div class="flower-icon">🌼</div>
+      <div class="header-title">
+        <h1>Enxoval da Margaridinha</h1>
+        <p>Catálogo visual de roupinhas & previsão das estações</p>
+        <span class="header-badge">✨ Nascimento Previsto: Abril (Outono)</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary" onclick="openAddModal()">
+        <span>➕</span> Nova Peça
+      </button>
+      <button class="btn btn-secondary" onclick="exportCSV()">
+        <span>📊</span> Planilha (CSV)
+      </button>
+      <button class="btn btn-accent" onclick="exportBackup()">
+        <span>💾</span> Backup
+      </button>
+    </div>
+  </header>
+
+  <!-- CARDS RESUMO / FAIXAS -->
+  <div class="summary-grid" id="summaryGrid">
+    <!-- Gerado via Javascript -->
+  </div>
+
+  <!-- FILTROS & BUSCA -->
+  <div class="controls-panel">
+    <div class="search-row">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar por peça, estampa, cor ou referência..." oninput="applyFilters()">
+      </div>
+
+      <div class="filter-selects">
+        <select id="filterSize" onchange="applyFilters()">
+          <option value="">Todos os Tamanhos</option>
+          <option value="RN">RN (0-1 mês • Abr-Mai)</option>
+          <option value="1-3M">1 a 3 meses (Mai-Jul)</option>
+          <option value="3-6M">3 a 6 meses (Jul-Out)</option>
+          <option value="6-9M">6 a 9 meses (Out-Jan)</option>
+          <option value="9-12M">9 a 12 meses (Jan-Abr)</option>
+          <option value="12-18M">12 a 18 meses (1 ano+)</option>
+          <option value="Único">Tamanho Único</option>
+        </select>
+
+        <select id="filterCategory" onchange="applyFilters()">
+          <option value="">Todas as Categorias</option>
+          <option value="Body">Body</option>
+          <option value="Pijama">Pijama</option>
+          <option value="Macacão">Macacão</option>
+          <option value="Calça">Calça</option>
+          <option value="Camiseta">Camiseta</option>
+          <option value="Conjunto">Conjunto</option>
+          <option value="Banho">Banho</option>
+          <option value="Calçado">Calçado</option>
+          <option value="Meias / Acessórios">Meias / Acessórios</option>
+        </select>
+      </div>
+
+      <div class="view-toggle">
+        <button class="view-btn active" id="btnViewGrid" onclick="setViewMode('grid')">
+          🖼️ Grade
+        </button>
+        <button class="view-btn" id="btnViewTable" onclick="setViewMode('table')">
+          📋 Tabela
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEÚDO PRINCIPAL (GRID) -->
+  <div class="items-grid" id="itemsGrid">
+    <!-- Renderizado dinamicamente -->
+  </div>
+
+  <!-- CONTEÚDO PRINCIPAL (TABELA) -->
+  <div class="table-container" id="tableContainer">
+    <table>
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Peça / Descrição</th>
+          <th>Tamanho</th>
+          <th>Época de Uso</th>
+          <th>Categoria</th>
+          <th>Qtd</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Renderizado dinamicamente -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MODAL DE CADASTRO / EDIÇÃO -->
+<div class="modal-overlay" id="itemModal" onclick="closeModalOnBackdrop(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Nova Peça</h2>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <form id="itemForm" onsubmit="saveItem(event)">
+      <div class="modal-body">
+        <input type="hidden" id="itemId">
+
+        <div class="form-group">
+          <label>Nome da Peça *</label>
+          <input type="text" id="itemName" placeholder="Ex: Macacão Curto Amarelo Pointelle" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tamanho *</label>
+            <select id="itemSize" required onchange="autoFillSeason()">
+              <option value="RN">RN (50–56 cm)</option>
+              <option value="1-3M">1 a 3 meses (62 cm)</option>
+              <option value="3-6M">3 a 6 meses (68 cm)</option>
+              <option value="6-9M">6 a 9 meses (68–74 cm)</option>
+              <option value="9-12M">9 a 12 meses (Tam. 18 / 74-80 cm)</option>
+              <option value="12-18M">12 a 18 meses (80–86 cm)</option>
+              <option value="Único">Tamanho Único</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Categoria *</label>
+            <select id="itemCategory" required>
+              <option value="Body">Body</option>
+              <option value="Macacão">Macacão</option>
+              <option value="Pijama">Pijama</option>
+              <option value="Conjunto">Conjunto</option>
+              <option value="Calça">Calça</option>
+              <option value="Camiseta">Camiseta</option>
+              <option value="Banho">Banho</option>
+              <option value="Calçado">Calçado</option>
+              <option value="Meias / Acessórios">Meias / Acessórios</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Época Prevista de Uso</label>
+            <input type="text" id="itemSeason" placeholder="Ex: Maio a Julho (Outono/Inverno)">
+          </div>
+
+          <div class="form-group">
+            <label>Quantidade</label>
+            <input type="number" id="itemQty" min="1" value="1" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Loja / Marca</label>
+            <input type="text" id="itemStore" placeholder="Ex: Carter's, Renner, Zara">
+          </div>
+
+          <div class="form-group">
+            <label>Código / Referência</label>
+            <input type="text" id="itemRef" placeholder="Ex: REF 2582/503">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Detalhes / Estampa / Cores</label>
+          <textarea id="itemDesc" rows="2" placeholder="Observações, tecido, bichinhos, detalhes..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Foto da Peça</label>
+          <div class="photo-upload-box" onclick="document.getElementById('photoFileInput').click()">
+            <input type="file" id="photoFileInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
+            <div>📷 Clique para anexar uma foto (ou arraste aqui)</div>
+            <div style="font-size:0.75rem; color:#9ca3af; margin-top:4px;">Ou informe o caminho/arquivo abaixo</div>
+          </div>
+          <input type="text" id="itemPhotoPath" placeholder="Ex: fotos/minnie.jpg ou https://..." style="margin-top:6px;">
+          <img id="photoPreview" class="photo-preview-thumb" alt="Preview">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar Peça</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toastNotification">Item atualizado com sucesso!</div>
+
+<script>
+// DADOS INICIAIS (Os 13 itens da conversa com Gemini)
+const DEFAULT_ITEMS = [
+  {
+    id: 1,
+    name: "Pijama Curto Inteiro Waffle Rosado",
+    size: "1-3M",
+    season: "Maio a Julho (Outono/Inverno)",
+    category: "Pijama",
+    store: "Loja",
+    ref: "3253/548",
+    qty: 1,
+    desc: "Pijama inteiro curto em tecido waffle com tom rosado delicado.",
+    photo: "fotos/item_1.jpg"
+  },
+  {
+    id: 2,
+    name: "Macacão Curto Pointelle Amarelo-Claro",
+    size: "1-3M",
+    season: "Maio a Julho (Outono/Inverno)",
+    category: "Macacão",
+    store: "Loja",
+    ref: "2582/503",
+    qty: 1,
+    desc: "Macacãozinho curto em malha pointelle texturizada amarelo bebê.",
+    photo: "fotos/item_2.jpg"
+  },
+  {
+    id: 3,
+    name: "Calça Estampada Listrada Verde-Água",
+    size: "3-6M",
+    season: "Julho a Outubro (Inverno/Primavera)",
+    category: "Calça",
+    store: "Loja",
+    ref: "4805/640",
+    qty: 1,
+    desc: "Calça listrada confortável em tom verde-água suave.",
+    photo: "fotos/item_3.jpg"
+  },
+  {
+    id: 4,
+    name: "Camiseta Manga Longa Winnie the Pooh Baunilha",
+    size: "3-6M",
+    season: "Julho a Outubro (Inverno/Primavera)",
+    category: "Camiseta",
+    store: "Loja",
+    ref: "6061/602",
+    qty: 1,
+    desc: "Camiseta manga longa cor baunilha com estampa fofa do Ursinho Pooh.",
+    photo: "fotos/item_4.jpg"
+  },
+  {
+    id: 5,
+    name: "Pijama Inteiro Curto Listrado Azul/Branco com Flor",
+    size: "6-9M",
+    season: "Outubro a Janeiro (Primavera/Verão)",
+    category: "Pijama",
+    store: "Loja",
+    ref: "3772/577",
+    qty: 1,
+    desc: "Pijama curto listrado azul e branco com detalhe charmoso de flor nos bolsos.",
+    photo: "fotos/item_5.jpg"
+  },
+  {
+    id: 6,
+    name: "Macacão Curto Kimono em Gaze Estampado",
+    size: "6-9M",
+    season: "Outubro a Janeiro (Primavera/Verão)",
+    category: "Macacão",
+    store: "Loja",
+    ref: "-",
+    qty: 1,
+    desc: "Estampa de bichinhos e flores em gaze fresca e leve com amarração estilo kimono.",
+    photo: "fotos/item_6.jpg"
+  },
+  {
+    id: 7,
+    name: "Conjunto Jardineira Curta Dinossauro + Camiseta Listrada",
+    size: "12-18M",
+    season: "Abril a Outubro (1 ano - Outono/Inverno)",
+    category: "Conjunto",
+    store: "Loja",
+    ref: "-",
+    qty: 1,
+    desc: "Jardineira curta laranja/bege com estampa de dinossauro + camiseta listrada.",
+    photo: "fotos/item_7.jpg"
+  },
+  {
+    id: 8,
+    name: "Tênis Bebê com Velcro e Silk Lateral Branco",
+    size: "9-12M",
+    season: "Janeiro a Abril (~1 ano - Verão)",
+    category: "Calçado",
+    store: "Lojas Renner / Teddy Boom",
+    ref: "747645456",
+    qty: 1,
+    desc: "Tamanho 18 (~11,5 cm) com fechamento prático em velcro e silk lateral.",
+    photo: "fotos/item_8.jpg"
+  },
+  {
+    id: 9,
+    name: "Roupão de Banho Bebê Bichinho (Coala) Bege Claro",
+    size: "6-9M",
+    season: "Outubro a Janeiro (Primavera/Verão)",
+    category: "Banho",
+    store: "Carter's",
+    ref: "9M",
+    qty: 1,
+    desc: "Roupão aveludado e aconchegante com capuz de orelhinhas de coala.",
+    photo: "fotos/item_9.jpg"
+  },
+  {
+    id: 10,
+    name: "Kit Toalha de Banho Bebê Pelicano (2 peças)",
+    size: "Único",
+    season: "Desde o nascimento (Abril+)",
+    category: "Banho",
+    store: "Carter's",
+    ref: "-",
+    qty: 1,
+    desc: "Kit com 2 toalhas de banho com capuz multicor com estampa fofa de pelicano.",
+    photo: "fotos/item_10.jpg"
+  },
+  {
+    id: 11,
+    name: "Body Manga Longa Canelado Rosa Coral",
+    size: "RN",
+    season: "Abril a Maio (Outono)",
+    category: "Body",
+    store: "Loja",
+    ref: "-",
+    qty: 1,
+    desc: "Tamanho RN (50–56 cm) canelado rosa coral / salmão com lacinho delicado na gola.",
+    photo: "fotos/item_11.jpg"
+  },
+  {
+    id: 12,
+    name: "Conjunto Moletom Minnie & Figaro 'Friends Fur-Ever!'",
+    size: "1-3M",
+    season: "Maio a Julho (Outono/Inverno)",
+    category: "Conjunto",
+    store: "Loja",
+    ref: "-",
+    qty: 1,
+    desc: "Conjunto de 2 peças: blusa de moletom creme/off-white + calça com punho e bordado da Minnie.",
+    photo: "fotos/item_12.jpg"
+  },
+  {
+    id: 13,
+    name: "Kit Meias Bebê Cano Curto Puma (3 pares)",
+    size: "1-3M",
+    season: "Maio a Julho (Outono/Inverno)",
+    category: "Meias / Acessórios",
+    store: "Puma",
+    ref: "-",
+    qty: 1,
+    desc: "Kit com 3 pares: 1 branca c/ verde-água, 1 branca c/ cinza e 1 cinza mescla.",
+    photo: "fotos/item_13.jpg"
+  }
+];
+
+// ESTRUTURA DE ESTAÇÕES POR TAMANHO
+const SIZE_SEASONS = {
+  "RN": { label: "RN", months: "Abr - Mai (Outono)", desc: "Recém-Nascida" },
+  "1-3M": { label: "1 a 3 meses", months: "Mai - Jul (Inverno)", desc: "Dias mais frios" },
+  "3-6M": { label: "3 a 6 meses", months: "Jul - Out (Inverno/Primavera)", desc: "Transição" },
+  "6-9M": { label: "6 a 9 meses", months: "Out - Jan (Primavera/Verão)", desc: "Dias quentes" },
+  "9-12M": { label: "9 a 12 meses", months: "Jan - Abr (Verão/Outono)", desc: "Perto de 1 aninho" },
+  "12-18M": { label: "12 a 18 meses", months: "Abr - Out (1 a 1,5 ano)", desc: "Primeiros passos" },
+  "Único": { label: "Tam. Único", months: "Desde Abril+", desc: "Uso contínuo" }
+};
+
+let items = [];
+let currentView = 'grid';
+let selectedSizeFilter = '';
+
+// INICIALIZAÇÃO
+function init() {
+  const saved = localStorage.getItem('margaridinha_enxoval_items');
+  if (saved) {
+    try {
+      items = JSON.parse(saved);
+    } catch(e) {
+      items = [...DEFAULT_ITEMS];
+    }
+  } else {
+    items = [...DEFAULT_ITEMS];
+    persist();
+  }
+  render();
+}
+
+function persist() {
+  localStorage.setItem('margaridinha_enxoval_items', JSON.stringify(items));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toastNotification');
+  t.innerText = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// RENDERIZAÇÃO GERAL
+function render() {
+  renderSummary();
+  renderGrid();
+  renderTable();
+}
+
+// RESUMO / CARDS SUPERIORES
+function renderSummary() {
+  const grid = document.getElementById('summaryGrid');
+  const sizeCounts = {};
+  let totalPeças = 0;
+
+  Object.keys(SIZE_SEASONS).forEach(k => sizeCounts[k] = 0);
+
+  items.forEach(it => {
+    const qty = parseInt(it.qty) || 1;
+    totalPeças += qty;
+    if (sizeCounts[it.size] !== undefined) {
+      sizeCounts[it.size] += qty;
+    } else {
+      sizeCounts[it.size] = (sizeCounts[it.size] || 0) + qty;
+    }
+  });
+
+  let html = `
+    <div class="stat-card ${selectedSizeFilter === '' ? 'active' : ''}" onclick="filterBySize('')">
+      <div class="stat-size">Total Geral</div>
+      <div class="stat-months">Enxoval Completo</div>
+      <div class="stat-count">${totalPeças}</div>
+      <div class="stat-label">peças / conjuntos</div>
+    </div>
+  `;
+
+  Object.entries(SIZE_SEASONS).forEach(([sizeKey, meta]) => {
+    const count = sizeCounts[sizeKey] || 0;
+    const isAct = selectedSizeFilter === sizeKey ? 'active' : '';
+    html += `
+      <div class="stat-card ${isAct}" onclick="filterBySize('${sizeKey}')">
+        <div class="stat-size">${meta.label}</div>
+        <div class="stat-months" title="${meta.months}">${meta.months}</div>
+        <div class="stat-count">${count}</div>
+        <div class="stat-label">${count === 1 ? 'peça' : 'peças'}</div>
+      </div>
+    `;
+  });
+
+  grid.innerHTML = html;
+}
+
+function filterBySize(sizeKey) {
+  selectedSizeFilter = sizeKey;
+  document.getElementById('filterSize').value = sizeKey;
+  applyFilters();
+}
+
+// FILTRAGEM
+function applyFilters() {
+  const search = document.getElementById('searchInput').value.toLowerCase().trim();
+  const sizeVal = document.getElementById('filterSize').value;
+  const catVal = document.getElementById('filterCategory').value;
+  selectedSizeFilter = sizeVal;
+
+  const filtered = items.filter(it => {
+    const matchSearch = !search || 
+      it.name.toLowerCase().includes(search) || 
+      (it.desc && it.desc.toLowerCase().includes(search)) ||
+      (it.ref && it.ref.toLowerCase().includes(search)) ||
+      (it.store && it.store.toLowerCase().includes(search));
+
+    const matchSize = !sizeVal || it.size === sizeVal;
+    const matchCat = !catVal || it.category === catVal;
+
+    return matchSearch && matchSize && matchCat;
+  });
+
+  renderSummary();
+  renderGrid(filtered);
+  renderTable(filtered);
+}
+
+// RENDER GRID
+function renderGrid(list = items) {
+  const container = document.getElementById('itemsGrid');
+  if (list.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state" style="grid-column: 1 / -1;">
+        <h3>Nenhuma peça encontrada</h3>
+        <p>Tente ajustar os filtros ou clique em "+ Nova Peça" para cadastrar.</p>
+        <button class="btn btn-primary" onclick="openAddModal()">Cadastrar Roupinha</button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = list.map(item => {
+    const photoContent = item.photo ? `
+      <img src="${item.photo}" class="card-photo" alt="${item.name}" onerror="handleImageError(this, '${escapeHtml(item.name)}')">
+    ` : getPlaceholderSVG(item.name);
+
+    return `
+      <div class="item-card" data-id="${item.id}">
+        <div class="card-photo-wrapper">
+          ${photoContent}
+          <div class="card-badges">
+            <span class="badge-size">${item.size}</span>
+            <span class="badge-category">${item.category}</span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <h3 class="card-title">${escapeHtml(item.name)}</h3>
+          <span class="card-season">🗓️ ${escapeHtml(item.season || 'Uso flexível')}</span>
+          
+          <div class="card-ref">
+            ${item.store ? `<strong>${escapeHtml(item.store)}</strong>` : ''} 
+            ${item.ref && item.ref !== '-' ? `• Ref: ${escapeHtml(item.ref)}` : ''}
+          </div>
+
+          <p class="card-desc">${escapeHtml(item.desc || '')}</p>
+
+          <div class="card-footer">
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+              <span class="qty-val">${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn-icon" title="Editar Peça" onclick="openEditModal(${item.id})">✏️</button>
+              <button class="btn-icon delete" title="Excluir Peça" onclick="deleteItem(${item.id})">🗑️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// RENDER TABELA
+function renderTable(list = items) {
+  const tbody = document.getElementById('tableBody');
+  if (list.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:24px; color:#9ca3af;">Nenhuma peça encontrada.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map(item => `
+    <tr>
+      <td>
+        ${item.photo ? `
+          <img src="${item.photo}" class="table-thumb" alt="${item.name}" onerror="this.src=''; this.alt='🌼';">
+        ` : `<div class="table-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🌼</div>`}
+      </td>
+      <td>
+        <strong style="color:#1f2937;">${escapeHtml(item.name)}</strong>
+        <div style="font-size:0.78rem; color:#6b7280; margin-top:2px;">
+          ${item.store ? escapeHtml(item.store) : ''} ${item.ref && item.ref !== '-' ? `(Ref: ${escapeHtml(item.ref)})` : ''}
+        </div>
+      </td>
+      <td><span class="badge-size">${item.size}</span></td>
+      <td><span style="font-size:0.85rem; color:#047857; font-weight:600;">${escapeHtml(item.season || '')}</span></td>
+      <td><span class="badge-category">${item.category}</span></td>
+      <td>
+        <div class="qty-control" style="transform: scale(0.9); transform-origin: left center;">
+          <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+      </td>
+      <td>
+        <div style="display:flex; gap:4px;">
+          <button class="btn-icon" title="Editar" onclick="openEditModal(${item.id})">✏️</button>
+          <button class="btn-icon delete" title="Excluir" onclick="deleteItem(${item.id})">🗑️</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function handleImageError(imgElem, name) {
+  imgElem.outerHTML = getPlaceholderSVG(name);
+}
+
+function getPlaceholderSVG(name) {
+  return `
+    <div class="photo-placeholder">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <div style="font-size:0.85rem; font-weight:700;">Foto não carregada</div>
+      <div class="photo-hint">Adicione em fotos/ ou clique em Editar ✏️</div>
+    </div>
+  `;
+}
+
+// TOGGLE VIEW
+function setViewMode(mode) {
+  currentView = mode;
+  const grid = document.getElementById('itemsGrid');
+  const table = document.getElementById('tableContainer');
+  const btnGrid = document.getElementById('btnViewGrid');
+  const btnTable = document.getElementById('btnViewTable');
+
+  if (mode === 'grid') {
+    grid.style.display = 'grid';
+    table.style.display = 'none';
+    btnGrid.classList.add('active');
+    btnTable.classList.remove('active');
+  } else {
+    grid.style.display = 'none';
+    table.style.display = 'block';
+    btnGrid.classList.remove('active');
+    btnTable.classList.add('active');
+  }
+}
+
+// AJUSTE RÁPIDO DE QUANTIDADE
+function changeQty(id, delta) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  const newQty = (parseInt(item.qty) || 1) + delta;
+  if (newQty < 1) return;
+  item.qty = newQty;
+  persist();
+  applyFilters();
+  showToast(`Quantidade de "${item.name}" ajustada para ${newQty}`);
+}
+
+// EXCLUIR ITEM
+function deleteItem(id) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  if (confirm(`Tem certeza que deseja remover "${item.name}" do enxoval?`)) {
+    items = items.filter(i => i.id !== id);
+    persist();
+    applyFilters();
+    showToast("Peça removida com sucesso.");
+  }
+}
+
+// MODAL ADD / EDIT
+function openAddModal() {
+  document.getElementById('itemForm').reset();
+  document.getElementById('itemId').value = '';
+  document.getElementById('modalTitle').innerText = 'Nova Peça do Enxoval 🌼';
+  document.getElementById('itemSize').value = '1-3M';
+  document.getElementById('itemQty').value = '1';
+  document.getElementById('photoPreview').style.display = 'none';
+  autoFillSeason();
+  document.getElementById('itemModal').classList.add('open');
+}
+
+function openEditModal(id) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+
+  document.getElementById('itemId').value = item.id;
+  document.getElementById('modalTitle').innerText = 'Editar Peça 🌼';
+  document.getElementById('itemName').value = item.name;
+  document.getElementById('itemSize').value = item.size;
+  document.getElementById('itemCategory').value = item.category;
+  document.getElementById('itemSeason').value = item.season || '';
+  document.getElementById('itemQty').value = item.qty || 1;
+  document.getElementById('itemStore').value = item.store || '';
+  document.getElementById('itemRef').value = item.ref || '';
+  document.getElementById('itemDesc').value = item.desc || '';
+  document.getElementById('itemPhotoPath').value = item.photo || '';
+
+  const preview = document.getElementById('photoPreview');
+  if (item.photo) {
+    preview.src = item.photo;
+    preview.style.display = 'block';
+  } else {
+    preview.style.display = 'none';
+  }
+
+  document.getElementById('itemModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('itemModal').classList.remove('open');
+}
+
+function closeModalOnBackdrop(e) {
+  if (e.target.id === 'itemModal') closeModal();
+}
+
+function autoFillSeason() {
+  const size = document.getElementById('itemSize').value;
+  const inputSeason = document.getElementById('itemSeason');
+  if (SIZE_SEASONS[size]) {
+    inputSeason.value = `${SIZE_SEASONS[size].months}`;
+  }
+}
+
+function handlePhotoUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    const base64 = evt.target.result;
+    document.getElementById('itemPhotoPath').value = base64;
+    const preview = document.getElementById('photoPreview');
+    preview.src = base64;
+    preview.style.display = 'block';
+    showToast("Foto anexada com sucesso!");
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveItem(e) {
+  e.preventDefault();
+  const idVal = document.getElementById('itemId').value;
+  const name = document.getElementById('itemName').value.trim();
+  const size = document.getElementById('itemSize').value;
+  const category = document.getElementById('itemCategory').value;
+  const season = document.getElementById('itemSeason').value.trim();
+  const qty = parseInt(document.getElementById('itemQty').value) || 1;
+  const store = document.getElementById('itemStore').value.trim();
+  const ref = document.getElementById('itemRef').value.trim();
+  const desc = document.getElementById('itemDesc').value.trim();
+  const photo = document.getElementById('itemPhotoPath').value.trim();
+
+  if (idVal) {
+    // Editar
+    const item = items.find(i => i.id === parseInt(idVal));
+    if (item) {
+      item.name = name;
+      item.size = size;
+      item.category = category;
+      item.season = season;
+      item.qty = qty;
+      item.store = store;
+      item.ref = ref;
+      item.desc = desc;
+      item.photo = photo;
+    }
+    showToast("Peça atualizada com sucesso!");
+  } else {
+    // Novo
+    const newId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
+    items.unshift({
+      id: newId,
+      name,
+      size,
+      category,
+      season,
+      qty,
+      store,
+      ref,
+      desc,
+      photo: photo || `fotos/item_${newId}.jpg`
+    });
+    showToast("Nova peça adicionada ao enxoval!");
+  }
+
+  persist();
+  closeModal();
+  applyFilters();
+}
+
+// EXPORTAR CSV (Compatível com Excel & Google Sheets)
+function exportCSV() {
+  const headers = ["ID", "Nome da Peça", "Tamanho", "Época Prevista de Uso", "Categoria", "Quantidade", "Loja / Marca", "Referência", "Descrição / Detalhes", "Arquivo de Foto"];
+  
+  const rows = items.map(it => [
+    it.id,
+    `"${(it.name || '').replace(/"/g, '""')}"`,
+    `"${it.size}"`,
+    `"${it.season || ''}"`,
+    `"${it.category}"`,
+    it.qty,
+    `"${(it.store || '').replace(/"/g, '""')}"`,
+    `"${(it.ref || '').replace(/"/g, '""')}"`,
+    `"${(it.desc || '').replace(/"/g, '""')}"`,
+    `"${it.photo || ''}"`
+  ]);
+
+  const csvContent = "\uFEFF" + [headers.join(";"), ...rows.map(r => r.join(";"))].join("\r\n");
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", "Enxoval_Margaridinha.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast("Planilha CSV baixada!");
+}
+
+// BACKUP JSON
+function exportBackup() {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(items, null, 2));
+  const link = document.createElement("a");
+  link.setAttribute("href", dataStr);
+  link.setAttribute("download", "backup_enxoval_margaridinha.json");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast("Backup JSON salvo!");
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// Disparar início
+window.onload = init;
+</script>
+
+</body>
+</html>
