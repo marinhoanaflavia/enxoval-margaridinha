@@ -356,7 +356,6 @@
       justify-content: center;
       border-bottom: 1px solid #f1e9dc;
       padding: 12px;
-      cursor: pointer;
     }
 
     .card-photo {
@@ -366,6 +365,7 @@
       height: auto;
       object-fit: contain;
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
     .item-card:hover .card-photo {
       transform: scale(1.04);
@@ -381,10 +381,17 @@
       font-weight: 600;
       text-align: center;
       padding: 16px;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .photo-placeholder:hover {
+      background: #fffbeb;
     }
     .photo-placeholder svg {
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       opacity: 0.8;
       stroke: #d97706;
     }
@@ -392,8 +399,9 @@
       font-size: 0.78rem;
       color: #92400e;
       background: rgba(254, 243, 199, 0.9);
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 6px;
+      border: 1px dashed #f59e0b;
     }
 
     .card-badges {
@@ -404,6 +412,7 @@
       display: flex;
       justify-content: space-between;
       pointer-events: none;
+      z-index: 2;
     }
 
     .badge-size {
@@ -544,19 +553,21 @@
     .btn-icon {
       background: #f3f4f6;
       border: none;
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       color: #4b5563;
+      font-size: 1rem;
       transition: all 0.2s;
     }
     .btn-icon:hover {
       background: #e5e7eb;
       color: #111827;
+      transform: scale(1.08);
     }
     .btn-icon.delete:hover {
       background: #fee2e2;
@@ -720,13 +731,15 @@
       border-color: #f59e0b;
     }
     .photo-preview-thumb {
-      max-width: 120px;
-      max-height: 120px;
-      margin: 8px auto 0;
+      max-width: 140px;
+      max-height: 140px;
+      margin: 10px auto 0;
       border-radius: 8px;
       display: none;
       object-fit: contain;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: white;
+      padding: 4px;
     }
 
     .modal-footer {
@@ -1075,6 +1088,179 @@
 <div class="toast" id="toastNotification">Item atualizado com sucesso!</div>
 
 <script>
+// BASE DE ITENS DE SEGURANÇA (Garante funcionamento offline e online)
+const DEFAULT_ITEMS = [
+  {
+    id: 11,
+    name: "Body Manga Longa Canelado Rosa Coral",
+    size: "RN",
+    season: "Abril a Maio (Outono)",
+    category: "Body",
+    store: "Loja",
+    ref: "-",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Tamanho RN (50–56 cm) canelado rosa coral / salmão com lacinho delicado na gola.",
+    photo: "fotos/item_11.jpg"
+  },
+  {
+    id: 1,
+    name: "Pijama Curto Inteiro Waffle Rosado",
+    size: "1-3M",
+    season: "Maio a Julho (Outono/Inverno)",
+    category: "Pijama",
+    store: "Loja",
+    ref: "3253/548",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Pijama inteiro curto em tecido waffle com tom rosado delicado.",
+    photo: "fotos/item_1.jpg.png"
+  },
+  {
+    id: 2,
+    name: "Macacão Curto Pointelle Amarelo-Claro",
+    size: "1-3M",
+    season: "Maio a Julho (Outono/Inverno)",
+    category: "Macacão",
+    store: "Loja",
+    ref: "2582/503",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Macacãozinho curto em malha pointelle texturizada amarelo bebê.",
+    photo: "fotos/item_2.jpg.png"
+  },
+  {
+    id: 12,
+    name: "Conjunto Moletom Minnie & Figaro 'Friends Fur-Ever!'",
+    size: "1-3M",
+    season: "Maio a Julho (Outono/Inverno)",
+    category: "Conjunto",
+    store: "Loja",
+    ref: "-",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Conjunto de 2 peças: blusa de moletom creme/off-white + calça com punho e bordado da Minnie.",
+    photo: "fotos/item_12.jpg"
+  },
+  {
+    id: 13,
+    name: "Kit Meias Bebê Cano Curto Puma (3 pares)",
+    size: "1-3M",
+    season: "Maio a Julho (Outono/Inverno)",
+    category: "Meias / Acessórios",
+    store: "Puma",
+    ref: "-",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Kit com 3 pares: 1 branca c/ verde-água, 1 branca c/ cinza e 1 cinza mescla.",
+    photo: "fotos/item_13.jpg"
+  },
+  {
+    id: 3,
+    name: "Calça Estampada Listrada Verde-Água",
+    size: "3-6M",
+    season: "Julho a Outubro (Inverno/Primavera)",
+    category: "Calça",
+    store: "Loja",
+    ref: "4805/640",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Calça listrada confortável em tom verde-água suave.",
+    photo: "fotos/item_3.jpg.png"
+  },
+  {
+    id: 4,
+    name: "Camiseta Manga Longa Winnie the Pooh Baunilha",
+    size: "3-6M",
+    season: "Julho a Outubro (Inverno/Primavera)",
+    category: "Camiseta",
+    store: "Loja",
+    ref: "6061/602",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Camiseta manga longa cor baunilha com estampa fofa do Ursinho Pooh.",
+    photo: "fotos/item_4.jpg.png"
+  },
+  {
+    id: 5,
+    name: "Pijama Inteiro Curto Listrado Azul/Branco com Flor",
+    size: "6-9M",
+    season: "Outubro a Janeiro (Primavera/Verão)",
+    category: "Pijama",
+    store: "Loja",
+    ref: "3772/577",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Pijama curto listrado azul e branco com detalhe charmoso de flor nos bolsos.",
+    photo: "fotos/item_5.jpg"
+  },
+  {
+    id: 6,
+    name: "Macacão Curto Kimono em Gaze Estampado",
+    size: "6-9M",
+    season: "Outubro a Janeiro (Primavera/Verão)",
+    category: "Macacão",
+    store: "Loja",
+    ref: "-",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Estampa de bichinhos e flores em gaze fresca e leve com amarração estilo kimono.",
+    photo: "fotos/item_6.jpg.png"
+  },
+  {
+    id: 9,
+    name: "Roupão de Banho Bebê Bichinho (Coala) Bege Claro",
+    size: "6-9M",
+    season: "Outubro a Janeiro (Primavera/Verão)",
+    category: "Banho",
+    store: "Carter's",
+    ref: "9M",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Roupão aveludado e aconchegante com capuz de orelhinhas de coala.",
+    photo: "fotos/item_9.jpg.png"
+  },
+  {
+    id: 8,
+    name: "Tênis Bebê com Velcro e Silk Lateral Branco",
+    size: "9-12M",
+    season: "Janeiro a Abril (~1 ano - Verão)",
+    category: "Calçado",
+    store: "Lojas Renner / Teddy Boom",
+    ref: "747645456",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Tamanho 18 (~11,5 cm) com fechamento prático em velcro e silk lateral.",
+    photo: "fotos/item_8.jpg.png"
+  },
+  {
+    id: 7,
+    name: "Conjunto Jardineira Curta Dinossauro + Camiseta Listrada",
+    size: "12-18M",
+    season: "Abril a Outubro (1 ano - Outono/Inverno)",
+    category: "Conjunto",
+    store: "Loja",
+    ref: "-",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Jardineira curta laranja/bege com estampa de dinossauro + camiseta listrada.",
+    photo: "fotos/item_7.jpg.png"
+  },
+  {
+    id: 10,
+    name: "Kit Toalha de Banho Bebê Pelicano (2 peças)",
+    size: "Único",
+    season: "Desde o nascimento (Abril+)",
+    category: "Banho",
+    store: "Carter's",
+    ref: "-",
+    qty: 1,
+    giver: "Tia Ana",
+    desc: "Kit com 2 toalhas de banho com capuz multicor com estampa fofa de pelicano.",
+    photo: "fotos/item_10.jpg.png"
+  }
+];
+
 // ESTRUTURA DE ESTAÇÕES POR TAMANHO
 const SIZE_SEASONS = {
   "RN": { label: "RN", months: "Abr - Mai (Outono)", desc: "Recém-Nascida" },
@@ -1097,28 +1283,29 @@ const SIZE_ORDER = {
   "Único": 7
 };
 
-let items = [];
+let items = [...DEFAULT_ITEMS];
 let currentView = 'grid';
 let selectedSizeFilter = '';
 
-// INICIALIZAÇÃO INTELIGENTE (Busca itens.json sem cache)
+// INICIALIZAÇÃO
 async function init() {
-  let loadedFromNet = false;
   try {
     const resp = await fetch('itens.json?t=' + Date.now());
     if (resp.ok) {
-      items = await resp.json();
-      localStorage.setItem('margaridinha_enxoval_cached', JSON.stringify(items));
-      loadedFromNet = true;
+      const netItems = await resp.json();
+      if (Array.isArray(netItems) && netItems.length > 0) {
+        items = netItems;
+        localStorage.setItem('margaridinha_enxoval_cached', JSON.stringify(items));
+      }
     }
   } catch(e) {
-    console.warn("Carregando do cache local offline:", e);
-  }
-
-  if (!loadedFromNet) {
+    // Modo offline / file:///
     const cached = localStorage.getItem('margaridinha_enxoval_cached');
     if (cached) {
-      try { items = JSON.parse(cached); } catch(e) {}
+      try { 
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) items = parsed;
+      } catch(err) {}
     }
   }
 
@@ -1142,8 +1329,8 @@ function populateGiverFilter() {
   const select = document.getElementById('filterGiver');
   const givers = new Set();
   items.forEach(it => {
-    if (it.giver && it.giver.trim()) {
-      givers.add(it.giver.trim());
+    if (it.giver && String(it.giver).trim()) {
+      givers.add(String(it.giver).trim());
     }
   });
 
@@ -1234,9 +1421,9 @@ function applyFilters() {
       const orderA = SIZE_ORDER[a.size] || 99;
       const orderB = SIZE_ORDER[b.size] || 99;
       if (orderA !== orderB) return orderA - orderB;
-      return (a.id || 0) - (b.id || 0);
+      return (Number(a.id) || 0) - (Number(b.id) || 0);
     } else if (sortBy === 'recent') {
-      return (b.id || 0) - (a.id || 0);
+      return (Number(b.id) || 0) - (Number(a.id) || 0);
     } else if (sortBy === 'name') {
       return (a.name || '').localeCompare(b.name || '');
     } else if (sortBy === 'giver') {
@@ -1265,9 +1452,10 @@ function renderGrid(list = items) {
   }
 
   container.innerHTML = list.map(item => {
-    const photoContent = item.photo ? `
-      <img src="${item.photo}" class="card-photo" alt="${escapeHtml(item.name)}" onclick="openLightbox('${item.photo}', '${escapeHtml(item.name)}')" onerror="handleImageError(this, '${escapeHtml(item.name)}')">
-    ` : getPlaceholderSVG(item.name);
+    const hasPhoto = item.photo && item.photo.trim() !== '';
+    const photoContent = hasPhoto ? `
+      <img src="${item.photo}" class="card-photo" alt="${escapeHtml(item.name)}" data-name="${escapeHtml(item.name)}" onclick="openLightbox('${item.photo}', this.getAttribute('data-name'))" onerror="handleImageError(this, ${item.id})">
+    ` : getPlaceholderSVG(item.id);
 
     return `
       <div class="item-card" data-id="${item.id}">
@@ -1296,14 +1484,14 @@ function renderGrid(list = items) {
 
           <div class="card-footer">
             <div class="qty-control">
-              <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+              <button type="button" class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
               <span class="qty-val">${item.qty}</span>
-              <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+              <button type="button" class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
             </div>
 
             <div class="card-actions">
-              <button class="btn-icon" title="Editar Peça" onclick="openEditModal(${item.id})">✏️</button>
-              <button class="btn-icon delete" title="Excluir Peça" onclick="deleteItem(${item.id})">🗑️</button>
+              <button type="button" class="btn-icon" title="Editar Peça" onclick="openEditModal(${item.id})">✏️</button>
+              <button type="button" class="btn-icon delete" title="Excluir Peça" onclick="deleteItem(${item.id})">🗑️</button>
             </div>
           </div>
         </div>
@@ -1324,8 +1512,8 @@ function renderTable(list = items) {
     <tr>
       <td>
         ${item.photo ? `
-          <img src="${item.photo}" class="table-thumb" alt="${escapeHtml(item.name)}" onclick="openLightbox('${item.photo}', '${escapeHtml(item.name)}')" onerror="this.src=''; this.alt='🌼';">
-        ` : `<div class="table-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🌼</div>`}
+          <img src="${item.photo}" class="table-thumb" alt="${escapeHtml(item.name)}" data-name="${escapeHtml(item.name)}" onclick="openLightbox('${item.photo}', this.getAttribute('data-name'))" onerror="this.src=''; this.alt='🌼';">
+        ` : `<div class="table-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;" onclick="openEditModal(${item.id})">🌼</div>`}
       </td>
       <td>
         <strong style="color:#1f2937;">${escapeHtml(item.name)}</strong>
@@ -1341,22 +1529,22 @@ function renderTable(list = items) {
       </td>
       <td>
         <div class="qty-control" style="transform: scale(0.9); transform-origin: left center;">
-          <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+          <button type="button" class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
           <span class="qty-val">${item.qty}</span>
-          <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+          <button type="button" class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
         </div>
       </td>
       <td>
         <div style="display:flex; gap:4px;">
-          <button class="btn-icon" title="Editar" onclick="openEditModal(${item.id})">✏️</button>
-          <button class="btn-icon delete" title="Excluir" onclick="deleteItem(${item.id})">🗑️</button>
+          <button type="button" class="btn-icon" title="Editar" onclick="openEditModal(${item.id})">✏️</button>
+          <button type="button" class="btn-icon delete" title="Excluir" onclick="deleteItem(${item.id})">🗑️</button>
         </div>
       </td>
     </tr>
   `).join('');
 }
 
-function handleImageError(imgElem, name) {
+function handleImageError(imgElem, itemId) {
   const currentSrc = imgElem.getAttribute('src') || '';
   if (currentSrc && currentSrc.endsWith('.jpg') && !imgElem.dataset.retried) {
     imgElem.dataset.retried = 'true';
@@ -1368,17 +1556,17 @@ function handleImageError(imgElem, name) {
     imgElem.src = currentSrc.replace('.jpg.png', '.jpg');
     return;
   }
-  imgElem.outerHTML = getPlaceholderSVG(name);
+  imgElem.outerHTML = getPlaceholderSVG(itemId);
 }
 
-function getPlaceholderSVG(name) {
+function getPlaceholderSVG(itemId) {
   return `
-    <div class="photo-placeholder">
+    <div class="photo-placeholder" onclick="openEditModal(${itemId})" title="Clique para anexar foto desta peça">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
-      <div style="font-size:0.85rem; font-weight:700;">Foto não carregada</div>
-      <div class="photo-hint">Adicione em fotos/ ou clique em Editar ✏️</div>
+      <div style="font-size:0.85rem; font-weight:700;">Foto pendente</div>
+      <div class="photo-hint">Clique aqui para adicionar foto ✏️</div>
     </div>
   `;
 }
@@ -1424,7 +1612,7 @@ function closeLightboxOnBackdrop(e) {
 
 // AJUSTE RÁPIDO DE QUANTIDADE
 function changeQty(id, delta) {
-  const item = items.find(i => i.id === id);
+  const item = items.find(i => String(i.id) === String(id));
   if (!item) return;
   const newQty = (parseInt(item.qty) || 1) + delta;
   if (newQty < 1) return;
@@ -1436,10 +1624,10 @@ function changeQty(id, delta) {
 
 // EXCLUIR ITEM
 function deleteItem(id) {
-  const item = items.find(i => i.id === id);
+  const item = items.find(i => String(i.id) === String(id));
   if (!item) return;
   if (confirm(`Tem certeza que deseja remover "${item.name}" do enxoval?`)) {
-    items = items.filter(i => i.id !== id);
+    items = items.filter(i => String(i.id) !== String(id));
     persist();
     populateGiverFilter();
     applyFilters();
@@ -1461,14 +1649,17 @@ function openAddModal() {
 }
 
 function openEditModal(id) {
-  const item = items.find(i => i.id === id);
-  if (!item) return;
+  const item = items.find(i => String(i.id) === String(id));
+  if (!item) {
+    console.warn("Item não encontrado para ID:", id);
+    return;
+  }
 
   document.getElementById('itemId').value = item.id;
   document.getElementById('modalTitle').innerText = 'Editar Peça 🌼';
-  document.getElementById('itemName').value = item.name;
-  document.getElementById('itemSize').value = item.size;
-  document.getElementById('itemCategory').value = item.category;
+  document.getElementById('itemName').value = item.name || '';
+  document.getElementById('itemSize').value = item.size || 'RN';
+  document.getElementById('itemCategory').value = item.category || 'Outro';
   document.getElementById('itemGiver').value = item.giver || '';
   document.getElementById('itemSeason').value = item.season || '';
   document.getElementById('itemQty').value = item.qty || 1;
@@ -1478,7 +1669,7 @@ function openEditModal(id) {
   document.getElementById('itemPhotoPath').value = item.photo || '';
 
   const preview = document.getElementById('photoPreview');
-  if (item.photo) {
+  if (item.photo && item.photo.trim() !== '') {
     preview.src = item.photo;
     preview.style.display = 'block';
   } else {
@@ -1535,7 +1726,7 @@ function saveItem(e) {
   const photo = document.getElementById('itemPhotoPath').value.trim();
 
   if (idVal) {
-    const item = items.find(i => i.id === parseInt(idVal));
+    const item = items.find(i => String(i.id) === String(idVal));
     if (item) {
       item.name = name;
       item.size = size;
@@ -1550,7 +1741,7 @@ function saveItem(e) {
     }
     showToast("Peça atualizada!");
   } else {
-    const newId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
+    const newId = items.length > 0 ? Math.max(...items.map(i => Number(i.id) || 0)) + 1 : 1;
     items.unshift({
       id: newId,
       name,
@@ -1617,7 +1808,7 @@ function exportBackup() {
 
 function escapeHtml(str) {
   if (!str) return '';
-  return str
+  return String(str)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
