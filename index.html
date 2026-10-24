@@ -101,6 +101,13 @@
       font-weight: 600;
     }
 
+    .header-badges-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
     .header-badge {
       display: inline-flex;
       align-items: center;
@@ -111,7 +118,12 @@
       border-radius: 20px;
       font-size: 0.85rem;
       font-weight: 700;
-      margin-top: 4px;
+    }
+
+    .header-badge.live {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
     }
 
     .header-actions {
@@ -231,11 +243,12 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .search-box {
-      flex: 1;
-      min-width: 240px;
+      flex: 2;
+      min-width: 220px;
       position: relative;
     }
     .search-box input {
@@ -263,17 +276,20 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      flex: 3;
     }
     .filter-selects select {
-      padding: 10px 14px;
+      padding: 10px 12px;
       border: 1.5px solid #e5e7eb;
       border-radius: 10px;
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
       background: white;
       color: var(--text-main);
       cursor: pointer;
+      flex: 1;
+      min-width: 140px;
     }
     .filter-selects select:focus {
       outline: none;
@@ -340,6 +356,7 @@
       justify-content: center;
       border-bottom: 1px solid #f1e9dc;
       padding: 12px;
+      cursor: pointer;
     }
 
     .card-photo {
@@ -349,10 +366,9 @@
       height: auto;
       object-fit: contain;
       transition: transform 0.3s ease;
-      cursor: pointer;
     }
     .item-card:hover .card-photo {
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
 
     .photo-placeholder {
@@ -430,24 +446,42 @@
       line-height: 1.35;
     }
 
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
     .card-season {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: #047857;
       background: #ecfdf5;
       padding: 3px 8px;
       border-radius: 6px;
-      margin-bottom: 8px;
-      align-self: flex-start;
+    }
+
+    .card-giver {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #9d174d;
+      background: #fdf2f8;
+      border: 1px solid #fbcfe8;
+      padding: 3px 9px;
+      border-radius: 20px;
     }
 
     .card-ref {
       font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .card-desc {
@@ -552,6 +586,7 @@
       font-weight: 700;
       padding: 14px 16px;
       border-bottom: 2px solid #fef3c7;
+      white-space: nowrap;
     }
 
     td {
@@ -565,13 +600,14 @@
     }
 
     .table-thumb {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 8px;
-      object-fit: cover;
-      background: #fefce8;
-      border: 1px solid #fef3c7;
+      object-fit: contain;
+      background: #fafaf9;
+      border: 1px solid #f1e9dc;
       display: block;
+      cursor: pointer;
     }
 
     /* MODAL */
@@ -689,7 +725,7 @@
       margin: 8px auto 0;
       border-radius: 8px;
       display: none;
-      object-fit: cover;
+      object-fit: contain;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
@@ -700,6 +736,58 @@
       justify-content: flex-end;
       gap: 10px;
       background: #f9fafb;
+    }
+
+    /* LIGHTBOX ZOOM */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 10000;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .lightbox-overlay.open {
+      display: flex;
+    }
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      background: white;
+      padding: 10px;
+    }
+    .lightbox-caption {
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.4);
     }
 
     /* TOAST */
@@ -717,7 +805,7 @@
       transform: translateY(100px);
       opacity: 0;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 10000;
+      z-index: 10001;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -750,6 +838,7 @@
       .header-actions { width: 100%; justify-content: stretch; }
       .header-actions .btn { flex: 1; justify-content: center; }
       .form-row { grid-template-columns: 1fr; }
+      .filter-selects { flex-direction: column; }
     }
   </style>
 </head>
@@ -763,7 +852,10 @@
       <div class="header-title">
         <h1>Enxoval da Margaridinha</h1>
         <p>Catálogo visual de roupinhas & previsão das estações</p>
-        <span class="header-badge">✨ Nascimento Previsto: Abril (Outono)</span>
+        <div class="header-badges-row">
+          <span class="header-badge">✨ Nascimento: Abril (Outono)</span>
+          <span class="header-badge live" id="liveSyncBadge">🟢 Sincronizado</span>
+        </div>
       </div>
     </div>
     <div class="header-actions">
@@ -789,10 +881,19 @@
     <div class="search-row">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Buscar por peça, estampa, cor ou referência..." oninput="applyFilters()">
+        <input type="text" id="searchInput" placeholder="Buscar peça, estampa, cor, marca ou quem deu..." oninput="applyFilters()">
       </div>
 
       <div class="filter-selects">
+        <!-- Ordenação -->
+        <select id="sortBy" onchange="applyFilters()" style="font-weight: 700; color: #92400e; background: #fffbeb;">
+          <option value="age-asc">👶 Ordenar: Idade (RN ➔ 1 ano+)</option>
+          <option value="recent">🕒 Mais Recentes</option>
+          <option value="name">🔤 Nome (A-Z)</option>
+          <option value="giver">🎁 Quem deu</option>
+        </select>
+
+        <!-- Filtro Tamanho -->
         <select id="filterSize" onchange="applyFilters()">
           <option value="">Todos os Tamanhos</option>
           <option value="RN">RN (0-1 mês • Abr-Mai)</option>
@@ -804,6 +905,7 @@
           <option value="Único">Tamanho Único</option>
         </select>
 
+        <!-- Filtro Categoria -->
         <select id="filterCategory" onchange="applyFilters()">
           <option value="">Todas as Categorias</option>
           <option value="Body">Body</option>
@@ -815,6 +917,11 @@
           <option value="Banho">Banho</option>
           <option value="Calçado">Calçado</option>
           <option value="Meias / Acessórios">Meias / Acessórios</option>
+        </select>
+
+        <!-- Filtro Quem Deu -->
+        <select id="filterGiver" onchange="applyFilters()">
+          <option value="">Todos (Quem deu)</option>
         </select>
       </div>
 
@@ -844,6 +951,7 @@
           <th>Tamanho</th>
           <th>Época de Uso</th>
           <th>Categoria</th>
+          <th>Quem Deu</th>
           <th>Qtd</th>
           <th>Ações</th>
         </tr>
@@ -904,8 +1012,8 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label>Época Prevista de Uso</label>
-            <input type="text" id="itemSeason" placeholder="Ex: Maio a Julho (Outono/Inverno)">
+            <label>🎁 Quem Deu / Presente de</label>
+            <input type="text" id="itemGiver" placeholder="Ex: Tia Ana, Vovó Maria, Pais">
           </div>
 
           <div class="form-group">
@@ -916,14 +1024,19 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label>Loja / Marca</label>
-            <input type="text" id="itemStore" placeholder="Ex: Carter's, Renner, Zara">
+            <label>Época Prevista de Uso</label>
+            <input type="text" id="itemSeason" placeholder="Ex: Maio a Julho (Outono/Inverno)">
           </div>
 
           <div class="form-group">
-            <label>Código / Referência</label>
-            <input type="text" id="itemRef" placeholder="Ex: REF 2582/503">
+            <label>Loja / Marca</label>
+            <input type="text" id="itemStore" placeholder="Ex: Carter's, Renner, Zara">
           </div>
+        </div>
+
+        <div class="form-group">
+          <label>Código / Referência</label>
+          <input type="text" id="itemRef" placeholder="Ex: REF 2582/503">
         </div>
 
         <div class="form-group">
@@ -951,170 +1064,17 @@
   </div>
 </div>
 
+<!-- LIGHTBOX ZOOM MODAL -->
+<div class="lightbox-overlay" id="lightboxModal" onclick="closeLightboxOnBackdrop(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightboxImg" class="lightbox-img" alt="Zoom Foto">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
 <!-- TOAST NOTIFICATION -->
 <div class="toast" id="toastNotification">Item atualizado com sucesso!</div>
 
 <script>
-// DADOS INICIAIS (Os 13 itens da conversa com Gemini)
-const DEFAULT_ITEMS = [
-  {
-    id: 1,
-    name: "Pijama Curto Inteiro Waffle Rosado",
-    size: "1-3M",
-    season: "Maio a Julho (Outono/Inverno)",
-    category: "Pijama",
-    store: "Loja",
-    ref: "3253/548",
-    qty: 1,
-    desc: "Pijama inteiro curto em tecido waffle com tom rosado delicado.",
-    photo: "fotos/item_1.jpg.png"
-  },
-  {
-    id: 2,
-    name: "Macacão Curto Pointelle Amarelo-Claro",
-    size: "1-3M",
-    season: "Maio a Julho (Outono/Inverno)",
-    category: "Macacão",
-    store: "Loja",
-    ref: "2582/503",
-    qty: 1,
-    desc: "Macacãozinho curto em malha pointelle texturizada amarelo bebê.",
-    photo: "fotos/item_2.jpg.png"
-  },
-  {
-    id: 3,
-    name: "Calça Estampada Listrada Verde-Água",
-    size: "3-6M",
-    season: "Julho a Outubro (Inverno/Primavera)",
-    category: "Calça",
-    store: "Loja",
-    ref: "4805/640",
-    qty: 1,
-    desc: "Calça listrada confortável em tom verde-água suave.",
-    photo: "fotos/item_3.jpg.png"
-  },
-  {
-    id: 4,
-    name: "Camiseta Manga Longa Winnie the Pooh Baunilha",
-    size: "3-6M",
-    season: "Julho a Outubro (Inverno/Primavera)",
-    category: "Camiseta",
-    store: "Loja",
-    ref: "6061/602",
-    qty: 1,
-    desc: "Camiseta manga longa cor baunilha com estampa fofa do Ursinho Pooh.",
-    photo: "fotos/item_4.jpg.png"
-  },
-  {
-    id: 5,
-    name: "Pijama Inteiro Curto Listrado Azul/Branco com Flor",
-    size: "6-9M",
-    season: "Outubro a Janeiro (Primavera/Verão)",
-    category: "Pijama",
-    store: "Loja",
-    ref: "3772/577",
-    qty: 1,
-    desc: "Pijama curto listrado azul e branco com detalhe charmoso de flor nos bolsos.",
-    photo: "fotos/item_5.jpg"
-  },
-  {
-    id: 6,
-    name: "Macacão Curto Kimono em Gaze Estampado",
-    size: "6-9M",
-    season: "Outubro a Janeiro (Primavera/Verão)",
-    category: "Macacão",
-    store: "Loja",
-    ref: "-",
-    qty: 1,
-    desc: "Estampa de bichinhos e flores em gaze fresca e leve com amarração estilo kimono.",
-    photo: "fotos/item_6.jpg.png"
-  },
-  {
-    id: 7,
-    name: "Conjunto Jardineira Curta Dinossauro + Camiseta Listrada",
-    size: "12-18M",
-    season: "Abril a Outubro (1 ano - Outono/Inverno)",
-    category: "Conjunto",
-    store: "Loja",
-    ref: "-",
-    qty: 1,
-    desc: "Jardineira curta laranja/bege com estampa de dinossauro + camiseta listrada.",
-    photo: "fotos/item_7.jpg.png"
-  },
-  {
-    id: 8,
-    name: "Tênis Bebê com Velcro e Silk Lateral Branco",
-    size: "9-12M",
-    season: "Janeiro a Abril (~1 ano - Verão)",
-    category: "Calçado",
-    store: "Lojas Renner / Teddy Boom",
-    ref: "747645456",
-    qty: 1,
-    desc: "Tamanho 18 (~11,5 cm) com fechamento prático em velcro e silk lateral.",
-    photo: "fotos/item_8.jpg.png"
-  },
-  {
-    id: 9,
-    name: "Roupão de Banho Bebê Bichinho (Coala) Bege Claro",
-    size: "6-9M",
-    season: "Outubro a Janeiro (Primavera/Verão)",
-    category: "Banho",
-    store: "Carter's",
-    ref: "9M",
-    qty: 1,
-    desc: "Roupão aveludado e aconchegante com capuz de orelhinhas de coala.",
-    photo: "fotos/item_9.jpg.png"
-  },
-  {
-    id: 10,
-    name: "Kit Toalha de Banho Bebê Pelicano (2 peças)",
-    size: "Único",
-    season: "Desde o nascimento (Abril+)",
-    category: "Banho",
-    store: "Carter's",
-    ref: "-",
-    qty: 1,
-    desc: "Kit com 2 toalhas de banho com capuz multicor com estampa fofa de pelicano.",
-    photo: "fotos/item_10.jpg.png"
-  },
-  {
-    id: 11,
-    name: "Body Manga Longa Canelado Rosa Coral",
-    size: "RN",
-    season: "Abril a Maio (Outono)",
-    category: "Body",
-    store: "Loja",
-    ref: "-",
-    qty: 1,
-    desc: "Tamanho RN (50–56 cm) canelado rosa coral / salmão com lacinho delicado na gola.",
-    photo: "fotos/item_11.jpg"
-  },
-  {
-    id: 12,
-    name: "Conjunto Moletom Minnie & Figaro 'Friends Fur-Ever!'",
-    size: "1-3M",
-    season: "Maio a Julho (Outono/Inverno)",
-    category: "Conjunto",
-    store: "Loja",
-    ref: "-",
-    qty: 1,
-    desc: "Conjunto de 2 peças: blusa de moletom creme/off-white + calça com punho e bordado da Minnie.",
-    photo: "fotos/item_12.jpg"
-  },
-  {
-    id: 13,
-    name: "Kit Meias Bebê Cano Curto Puma (3 pares)",
-    size: "1-3M",
-    season: "Maio a Julho (Outono/Inverno)",
-    category: "Meias / Acessórios",
-    store: "Puma",
-    ref: "-",
-    qty: 1,
-    desc: "Kit com 3 pares: 1 branca c/ verde-água, 1 branca c/ cinza e 1 cinza mescla.",
-    photo: "fotos/item_13.jpg"
-  }
-];
-
 // ESTRUTURA DE ESTAÇÕES POR TAMANHO
 const SIZE_SEASONS = {
   "RN": { label: "RN", months: "Abr - Mai (Outono)", desc: "Recém-Nascida" },
@@ -1126,28 +1086,48 @@ const SIZE_SEASONS = {
   "Único": { label: "Tam. Único", months: "Desde Abril+", desc: "Uso contínuo" }
 };
 
+// ORDEM CRONOLÓGICA DAS FAIXAS
+const SIZE_ORDER = {
+  "RN": 1,
+  "1-3M": 2,
+  "3-6M": 3,
+  "6-9M": 4,
+  "9-12M": 5,
+  "12-18M": 6,
+  "Único": 7
+};
+
 let items = [];
 let currentView = 'grid';
 let selectedSizeFilter = '';
 
-// INICIALIZAÇÃO
-function init() {
-  const saved = localStorage.getItem('margaridinha_enxoval_items_v2');
-  if (saved) {
-    try {
-      items = JSON.parse(saved);
-    } catch(e) {
-      items = [...DEFAULT_ITEMS];
+// INICIALIZAÇÃO INTELIGENTE (Busca itens.json sem cache)
+async function init() {
+  let loadedFromNet = false;
+  try {
+    const resp = await fetch('itens.json?t=' + Date.now());
+    if (resp.ok) {
+      items = await resp.json();
+      localStorage.setItem('margaridinha_enxoval_cached', JSON.stringify(items));
+      loadedFromNet = true;
     }
-  } else {
-    items = [...DEFAULT_ITEMS];
-    persist();
+  } catch(e) {
+    console.warn("Carregando do cache local offline:", e);
   }
-  render();
+
+  if (!loadedFromNet) {
+    const cached = localStorage.getItem('margaridinha_enxoval_cached');
+    if (cached) {
+      try { items = JSON.parse(cached); } catch(e) {}
+    }
+  }
+
+  populateGiverFilter();
+  applyFilters();
 }
 
 function persist() {
-  localStorage.setItem('margaridinha_enxoval_items_v2', JSON.stringify(items));
+  localStorage.setItem('margaridinha_enxoval_cached', JSON.stringify(items));
 }
 
 function showToast(msg) {
@@ -1157,14 +1137,25 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2600);
 }
 
-// RENDERIZAÇÃO GERAL
-function render() {
-  renderSummary();
-  renderGrid();
-  renderTable();
+// POPULAR OPÇÕES DO FILTRO "QUEM DEU"
+function populateGiverFilter() {
+  const select = document.getElementById('filterGiver');
+  const givers = new Set();
+  items.forEach(it => {
+    if (it.giver && it.giver.trim()) {
+      givers.add(it.giver.trim());
+    }
+  });
+
+  const currentVal = select.value;
+  select.innerHTML = '<option value="">Todos (Quem deu)</option>';
+  Array.from(givers).sort().forEach(g => {
+    select.innerHTML += `<option value="${escapeHtml(g)}">🎁 ${escapeHtml(g)}</option>`;
+  });
+  select.value = currentVal;
 }
 
-// RESUMO / CARDS SUPERIORES
+// RENDER RESUMO / CARDS SUPERIORES
 function renderSummary() {
   const grid = document.getElementById('summaryGrid');
   const sizeCounts = {};
@@ -1213,24 +1204,45 @@ function filterBySize(sizeKey) {
   applyFilters();
 }
 
-// FILTRAGEM
+// FILTRAGEM E ORDENAÇÃO
 function applyFilters() {
   const search = document.getElementById('searchInput').value.toLowerCase().trim();
   const sizeVal = document.getElementById('filterSize').value;
   const catVal = document.getElementById('filterCategory').value;
+  const giverVal = document.getElementById('filterGiver').value;
+  const sortBy = document.getElementById('sortBy').value;
   selectedSizeFilter = sizeVal;
 
-  const filtered = items.filter(it => {
+  let filtered = items.filter(it => {
     const matchSearch = !search || 
-      it.name.toLowerCase().includes(search) || 
+      (it.name && it.name.toLowerCase().includes(search)) || 
       (it.desc && it.desc.toLowerCase().includes(search)) ||
       (it.ref && it.ref.toLowerCase().includes(search)) ||
-      (it.store && it.store.toLowerCase().includes(search));
+      (it.store && it.store.toLowerCase().includes(search)) ||
+      (it.giver && it.giver.toLowerCase().includes(search));
 
     const matchSize = !sizeVal || it.size === sizeVal;
     const matchCat = !catVal || it.category === catVal;
+    const matchGiver = !giverVal || it.giver === giverVal;
 
-    return matchSearch && matchSize && matchCat;
+    return matchSearch && matchSize && matchCat && matchGiver;
+  });
+
+  // ORDENAÇÃO
+  filtered.sort((a, b) => {
+    if (sortBy === 'age-asc') {
+      const orderA = SIZE_ORDER[a.size] || 99;
+      const orderB = SIZE_ORDER[b.size] || 99;
+      if (orderA !== orderB) return orderA - orderB;
+      return (a.id || 0) - (b.id || 0);
+    } else if (sortBy === 'recent') {
+      return (b.id || 0) - (a.id || 0);
+    } else if (sortBy === 'name') {
+      return (a.name || '').localeCompare(b.name || '');
+    } else if (sortBy === 'giver') {
+      return (a.giver || '').localeCompare(b.giver || '');
+    }
+    return 0;
   });
 
   renderSummary();
@@ -1254,7 +1266,7 @@ function renderGrid(list = items) {
 
   container.innerHTML = list.map(item => {
     const photoContent = item.photo ? `
-      <img src="${item.photo}" class="card-photo" alt="${item.name}" onerror="handleImageError(this, '${escapeHtml(item.name)}')">
+      <img src="${item.photo}" class="card-photo" alt="${escapeHtml(item.name)}" onclick="openLightbox('${item.photo}', '${escapeHtml(item.name)}')" onerror="handleImageError(this, '${escapeHtml(item.name)}')">
     ` : getPlaceholderSVG(item.name);
 
     return `
@@ -1269,8 +1281,12 @@ function renderGrid(list = items) {
 
         <div class="card-body">
           <h3 class="card-title">${escapeHtml(item.name)}</h3>
-          <span class="card-season">🗓️ ${escapeHtml(item.season || 'Uso flexível')}</span>
           
+          <div class="card-tags">
+            <span class="card-season">🗓️ ${escapeHtml(item.season || 'Uso flexível')}</span>
+            ${item.giver ? `<span class="card-giver">🎁 ${escapeHtml(item.giver)}</span>` : ''}
+          </div>
+
           <div class="card-ref">
             ${item.store ? `<strong>${escapeHtml(item.store)}</strong>` : ''} 
             ${item.ref && item.ref !== '-' ? `• Ref: ${escapeHtml(item.ref)}` : ''}
@@ -1300,7 +1316,7 @@ function renderGrid(list = items) {
 function renderTable(list = items) {
   const tbody = document.getElementById('tableBody');
   if (list.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:24px; color:#9ca3af;">Nenhuma peça encontrada.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:24px; color:#9ca3af;">Nenhuma peça encontrada.</td></tr>`;
     return;
   }
 
@@ -1308,7 +1324,7 @@ function renderTable(list = items) {
     <tr>
       <td>
         ${item.photo ? `
-          <img src="${item.photo}" class="table-thumb" alt="${item.name}" onerror="this.src=''; this.alt='🌼';">
+          <img src="${item.photo}" class="table-thumb" alt="${escapeHtml(item.name)}" onclick="openLightbox('${item.photo}', '${escapeHtml(item.name)}')" onerror="this.src=''; this.alt='🌼';">
         ` : `<div class="table-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🌼</div>`}
       </td>
       <td>
@@ -1320,6 +1336,9 @@ function renderTable(list = items) {
       <td><span class="badge-size">${item.size}</span></td>
       <td><span style="font-size:0.85rem; color:#047857; font-weight:600;">${escapeHtml(item.season || '')}</span></td>
       <td><span class="badge-category">${item.category}</span></td>
+      <td>
+        ${item.giver ? `<span class="card-giver" style="font-size:0.75rem;">🎁 ${escapeHtml(item.giver)}</span>` : '<span style="color:#9ca3af;">-</span>'}
+      </td>
       <td>
         <div class="qty-control" style="transform: scale(0.9); transform-origin: left center;">
           <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
@@ -1385,6 +1404,24 @@ function setViewMode(mode) {
   }
 }
 
+// LIGHTBOX ZOOM
+function openLightbox(src, caption) {
+  const modal = document.getElementById('lightboxModal');
+  const img = document.getElementById('lightboxImg');
+  const cap = document.getElementById('lightboxCaption');
+  img.src = src;
+  cap.innerText = caption || '';
+  modal.classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightboxModal').classList.remove('open');
+}
+
+function closeLightboxOnBackdrop(e) {
+  if (e.target.id === 'lightboxModal') closeLightbox();
+}
+
 // AJUSTE RÁPIDO DE QUANTIDADE
 function changeQty(id, delta) {
   const item = items.find(i => i.id === id);
@@ -1394,7 +1431,7 @@ function changeQty(id, delta) {
   item.qty = newQty;
   persist();
   applyFilters();
-  showToast(`Quantidade de "${item.name}" ajustada para ${newQty}`);
+  showToast(`Quantidade ajustada para ${newQty}`);
 }
 
 // EXCLUIR ITEM
@@ -1404,8 +1441,9 @@ function deleteItem(id) {
   if (confirm(`Tem certeza que deseja remover "${item.name}" do enxoval?`)) {
     items = items.filter(i => i.id !== id);
     persist();
+    populateGiverFilter();
     applyFilters();
-    showToast("Peça removida com sucesso.");
+    showToast("Peça removida.");
   }
 }
 
@@ -1416,6 +1454,7 @@ function openAddModal() {
   document.getElementById('modalTitle').innerText = 'Nova Peça do Enxoval 🌼';
   document.getElementById('itemSize').value = '1-3M';
   document.getElementById('itemQty').value = '1';
+  document.getElementById('itemGiver').value = 'Tia Ana';
   document.getElementById('photoPreview').style.display = 'none';
   autoFillSeason();
   document.getElementById('itemModal').classList.add('open');
@@ -1430,6 +1469,7 @@ function openEditModal(id) {
   document.getElementById('itemName').value = item.name;
   document.getElementById('itemSize').value = item.size;
   document.getElementById('itemCategory').value = item.category;
+  document.getElementById('itemGiver').value = item.giver || '';
   document.getElementById('itemSeason').value = item.season || '';
   document.getElementById('itemQty').value = item.qty || 1;
   document.getElementById('itemStore').value = item.store || '';
@@ -1475,7 +1515,7 @@ function handlePhotoUpload(e) {
     const preview = document.getElementById('photoPreview');
     preview.src = base64;
     preview.style.display = 'block';
-    showToast("Foto anexada com sucesso!");
+    showToast("Foto anexada!");
   };
   reader.readAsDataURL(file);
 }
@@ -1486,6 +1526,7 @@ function saveItem(e) {
   const name = document.getElementById('itemName').value.trim();
   const size = document.getElementById('itemSize').value;
   const category = document.getElementById('itemCategory').value;
+  const giver = document.getElementById('itemGiver').value.trim();
   const season = document.getElementById('itemSeason').value.trim();
   const qty = parseInt(document.getElementById('itemQty').value) || 1;
   const store = document.getElementById('itemStore').value.trim();
@@ -1494,12 +1535,12 @@ function saveItem(e) {
   const photo = document.getElementById('itemPhotoPath').value.trim();
 
   if (idVal) {
-    // Editar
     const item = items.find(i => i.id === parseInt(idVal));
     if (item) {
       item.name = name;
       item.size = size;
       item.category = category;
+      item.giver = giver;
       item.season = season;
       item.qty = qty;
       item.store = store;
@@ -1507,15 +1548,15 @@ function saveItem(e) {
       item.desc = desc;
       item.photo = photo;
     }
-    showToast("Peça atualizada com sucesso!");
+    showToast("Peça atualizada!");
   } else {
-    // Novo
     const newId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
     items.unshift({
       id: newId,
       name,
       size,
       category,
+      giver,
       season,
       qty,
       store,
@@ -1523,17 +1564,18 @@ function saveItem(e) {
       desc,
       photo: photo || `fotos/item_${newId}.jpg`
     });
-    showToast("Nova peça adicionada ao enxoval!");
+    showToast("Nova peça adicionada!");
   }
 
   persist();
+  populateGiverFilter();
   closeModal();
   applyFilters();
 }
 
-// EXPORTAR CSV (Compatível com Excel & Google Sheets)
+// EXPORTAR CSV
 function exportCSV() {
-  const headers = ["ID", "Nome da Peça", "Tamanho", "Época Prevista de Uso", "Categoria", "Quantidade", "Loja / Marca", "Referência", "Descrição / Detalhes", "Arquivo de Foto"];
+  const headers = ["ID", "Nome da Peça", "Tamanho", "Época Prevista de Uso", "Categoria", "Quem Deu", "Quantidade", "Loja / Marca", "Referência", "Descrição", "Foto"];
   
   const rows = items.map(it => [
     it.id,
@@ -1541,6 +1583,7 @@ function exportCSV() {
     `"${it.size}"`,
     `"${it.season || ''}"`,
     `"${it.category}"`,
+    `"${(it.giver || '').replace(/"/g, '""')}"`,
     it.qty,
     `"${(it.store || '').replace(/"/g, '""')}"`,
     `"${(it.ref || '').replace(/"/g, '""')}"`,
@@ -1582,7 +1625,6 @@ function escapeHtml(str) {
     .replace(/'/g, "&#039;");
 }
 
-// Disparar início
 window.onload = init;
 </script>
 
