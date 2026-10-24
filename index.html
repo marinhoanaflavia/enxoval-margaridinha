@@ -963,7 +963,7 @@ const DEFAULT_ITEMS = [
     ref: "3253/548",
     qty: 1,
     desc: "Pijama inteiro curto em tecido waffle com tom rosado delicado.",
-    photo: "fotos/item_1.jpg"
+    photo: "fotos/item_1.jpg.png"
   },
   {
     id: 2,
@@ -975,7 +975,7 @@ const DEFAULT_ITEMS = [
     ref: "2582/503",
     qty: 1,
     desc: "Macacãozinho curto em malha pointelle texturizada amarelo bebê.",
-    photo: "fotos/item_2.jpg"
+    photo: "fotos/item_2.jpg.png"
   },
   {
     id: 3,
@@ -987,7 +987,7 @@ const DEFAULT_ITEMS = [
     ref: "4805/640",
     qty: 1,
     desc: "Calça listrada confortável em tom verde-água suave.",
-    photo: "fotos/item_3.jpg"
+    photo: "fotos/item_3.jpg.png"
   },
   {
     id: 4,
@@ -999,7 +999,7 @@ const DEFAULT_ITEMS = [
     ref: "6061/602",
     qty: 1,
     desc: "Camiseta manga longa cor baunilha com estampa fofa do Ursinho Pooh.",
-    photo: "fotos/item_4.jpg"
+    photo: "fotos/item_4.jpg.png"
   },
   {
     id: 5,
@@ -1023,7 +1023,7 @@ const DEFAULT_ITEMS = [
     ref: "-",
     qty: 1,
     desc: "Estampa de bichinhos e flores em gaze fresca e leve com amarração estilo kimono.",
-    photo: "fotos/item_6.jpg"
+    photo: "fotos/item_6.jpg.png"
   },
   {
     id: 7,
@@ -1035,7 +1035,7 @@ const DEFAULT_ITEMS = [
     ref: "-",
     qty: 1,
     desc: "Jardineira curta laranja/bege com estampa de dinossauro + camiseta listrada.",
-    photo: "fotos/item_7.jpg"
+    photo: "fotos/item_7.jpg.png"
   },
   {
     id: 8,
@@ -1047,7 +1047,7 @@ const DEFAULT_ITEMS = [
     ref: "747645456",
     qty: 1,
     desc: "Tamanho 18 (~11,5 cm) com fechamento prático em velcro e silk lateral.",
-    photo: "fotos/item_8.jpg"
+    photo: "fotos/item_8.jpg.png"
   },
   {
     id: 9,
@@ -1059,7 +1059,7 @@ const DEFAULT_ITEMS = [
     ref: "9M",
     qty: 1,
     desc: "Roupão aveludado e aconchegante com capuz de orelhinhas de coala.",
-    photo: "fotos/item_9.jpg"
+    photo: "fotos/item_9.jpg.png"
   },
   {
     id: 10,
@@ -1071,7 +1071,7 @@ const DEFAULT_ITEMS = [
     ref: "-",
     qty: 1,
     desc: "Kit com 2 toalhas de banho com capuz multicor com estampa fofa de pelicano.",
-    photo: "fotos/item_10.jpg"
+    photo: "fotos/item_10.jpg.png"
   },
   {
     id: 11,
@@ -1128,7 +1128,7 @@ let selectedSizeFilter = '';
 
 // INICIALIZAÇÃO
 function init() {
-  const saved = localStorage.getItem('margaridinha_enxoval_items');
+  const saved = localStorage.getItem('margaridinha_enxoval_items_v2');
   if (saved) {
     try {
       items = JSON.parse(saved);
@@ -1143,7 +1143,7 @@ function init() {
 }
 
 function persist() {
-  localStorage.setItem('margaridinha_enxoval_items', JSON.stringify(items));
+  localStorage.setItem('margaridinha_enxoval_items_v2', JSON.stringify(items));
 }
 
 function showToast(msg) {
@@ -1334,6 +1334,17 @@ function renderTable(list = items) {
 }
 
 function handleImageError(imgElem, name) {
+  const currentSrc = imgElem.getAttribute('src') || '';
+  if (currentSrc && currentSrc.endsWith('.jpg') && !imgElem.dataset.retried) {
+    imgElem.dataset.retried = 'true';
+    imgElem.src = currentSrc + '.png';
+    return;
+  }
+  if (currentSrc && currentSrc.endsWith('.jpg.png') && !imgElem.dataset.retried) {
+    imgElem.dataset.retried = 'true';
+    imgElem.src = currentSrc.replace('.jpg.png', '.jpg');
+    return;
+  }
   imgElem.outerHTML = getPlaceholderSVG(name);
 }
 
